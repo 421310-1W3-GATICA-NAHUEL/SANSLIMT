@@ -141,7 +141,11 @@
               "RelativeDocumentMoniker": "SansLimt.Api\\Program.cs",
               "ToolTip": "C:\\Users\\nahue\\OneDrive\\Escritorio\\TP 1 BD III - SANS LIMT\\TP 1 BD III - SANS LIMT\\SansLimt.Api\\SansLimt.Api\\Program.cs",
               "RelativeToolTip": "SansLimt.Api\\Program.cs",
+<<<<<<< HEAD
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADgAAAAKAAAAAAAAAA==",
+=======
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAADgAAAAKAAAAAAAAAA==",
+>>>>>>> 6739bede96970a9a4f1597e4dc93a29164034ab8
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-27T12:46:57.255Z",
               "EditorCaption": ""
