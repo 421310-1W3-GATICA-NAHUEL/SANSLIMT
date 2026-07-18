@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../services/api';
 
 export const Ruleta = ({ onWinCupon }) => {
     const [girando, setGirando] = useState(false);
@@ -47,7 +48,7 @@ export const Ruleta = ({ onWinCupon }) => {
             const codigoAsociado = mapeoCupones[resultado];
             if (codigoAsociado) {
                 try {
-                    const response = await axios.get(`https://localhost:7094/api/cupones/${codigoAsociado}`);
+                    const response = await axios.get(`${API_BASE_URL}/api/cupones/${codigoAsociado}`);
 
                     if (response.status === 200 && response.data.activo) {
                         setCodigoCupon(response.data.codigo);

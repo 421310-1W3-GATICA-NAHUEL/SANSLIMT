@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
+import { API_BASE_URL } from '../services/api';
 
 export const LoginRegistro = ({ onLoginSuccess }) => {
     const [esRegistro, setEsRegistro] = useState(false);
@@ -38,7 +39,7 @@ export const LoginRegistro = ({ onLoginSuccess }) => {
         });
 
         try {
-            const response = await fetch('https://localhost:7094/api/auth/login', {
+            const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(loginData)
@@ -91,7 +92,7 @@ export const LoginRegistro = ({ onLoginSuccess }) => {
         });
 
         try {
-            const response = await fetch('https://localhost:7094/api/auth/registrar', {
+            const response = await fetch(`${API_BASE_URL}/api/auth/registrar`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(registroData)

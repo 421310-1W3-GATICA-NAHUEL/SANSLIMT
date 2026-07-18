@@ -1,0 +1,16 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+
+# Visual Studio
+.vs/
+
+# MongoDB local data / logs
+data/db/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

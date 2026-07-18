@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { API_BASE_URL } from '../services/api';
 
 export const DashboardMetricas = () => {
     const [pedidos, setPedidos] = useState([]);
@@ -7,7 +8,7 @@ export const DashboardMetricas = () => {
 
     useEffect(() => {
         // Llamamos a tu API de C#
-        fetch('https://localhost:7094/api/pedidos') // ⚠️ Reemplazá XXXX por tu puerto de C#
+        fetch(`${API_BASE_URL}/api/pedidos`)
             .then(res => res.json())
             .then(data => {
                 setPedidos(data);

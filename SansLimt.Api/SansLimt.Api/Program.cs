@@ -1,9 +1,17 @@
 using SansLimt.Api.Services;
 using MongoDB.Driver;
+using System.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// --- CONFIGURACIÓN DE MONGODB ---
+// --- PUERTO (Render inyecta la variable PORT) ---
+var port = Environment.GetEnvironmentVariable("PORT");
+if (!string.IsNullOrEmpty(port))
+{
+    builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+}
+
+// --- CONFIGURACIï¿½N DE MONGODB ---
 
 var dbSection = builder.Configuration.GetSection("SansLimitDatabase");
 
@@ -13,7 +21,7 @@ var databaseName = dbSection.GetValue<string>("DatabaseName");
 
 if (string.IsNullOrEmpty(connectionString))
 {
-    throw new Exception("ERROR: No se encuentra 'ConnectionString' en appsettings.json. Revisá el nombre de la sección.");
+    throw new Exception("ERROR: No se encuentra 'ConnectionString' en appsettings.json. Revisï¿½ el nombre de la secciï¿½n.");
 }
 
 var mongoClient = new MongoClient(connectionString);
@@ -34,9 +42,15 @@ builder.Services.AddSingleton<CuponesService>();
 builder.Services.AddSingleton<PedidosService>();
 
 // --- CORS ---
+var defaultOrigins = new[] { "http://localhost:5173", "http://localhost:5174" };
+var extraOrigins = Environment.GetEnvironmentVariable("FRONTEND_URL")
+    ?.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+    ?? Array.Empty<string>();
+var allowedOrigins = defaultOrigins.Concat(extraOrigins).ToArray();
+
 builder.Services.AddCors(options => {
     options.AddPolicy("AllowReactApp", policy => {
-        policy.WithOrigins("http://localhost:5173", "http://localhost:5174")
+        policy.WithOrigins(allowedOrigins)
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -50,7 +64,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+if (string.IsNullOrEmpty(port))
+{
+    app.UseHttpsRedirection();
+}
 app.UseCors("AllowReactApp");
 app.UseAuthorization();
 app.MapControllers();

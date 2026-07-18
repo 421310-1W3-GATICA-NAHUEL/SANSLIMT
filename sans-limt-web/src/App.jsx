@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
+import { API_BASE_URL } from './services/api'
 
 // IMPORTACIÓN DE COMPONENTES
 import { Ruleta } from './components/Ruleta'
@@ -33,7 +34,7 @@ function App() {
 
   const traerProductos = async () => {
     try {
-      const response = await axios.get('https://localhost:7094/api/productos')
+      const response = await axios.get(`${API_BASE_URL}/api/productos`)
       setProductos(response.data)
     } catch (error) {
       console.error("Error conectando a la API:", error)
@@ -83,7 +84,7 @@ function App() {
   const handleDelete = async (id) => {
     if (window.confirm("¿Seguro querés eliminar este producto?")) {
       try {
-        await axios.delete(`https://localhost:7094/api/productos/${id}`)
+        await axios.delete(`${API_BASE_URL}/api/productos/${id}`)
         traerProductos()
       } catch (error) {
         console.error("Error al eliminar:", error)
